@@ -24,7 +24,7 @@
          <children>
             <HBox alignment="CENTER" prefHeight="46.0" prefWidth="709.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
                <children>
-                  <Button fx:id="home" mnemonicParsing="false" styleClass="round-button" text="Home" />
+                  <Button fx:id="home" mnemonicParsing="false" onAction="#homeClick" styleClass="round-button" text="Home" />
                   <Pane prefHeight="46.0" prefWidth="23.0" />
                   <MenuButton mnemonicParsing="false" prefHeight="27.0" prefWidth="49.0" styleClass="round-button" text="☰" textAlignment="CENTER">
                     <items>
