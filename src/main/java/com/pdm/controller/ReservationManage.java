@@ -1,4 +1,4 @@
 package com.pdm.controller;
 
-public class ReservationManage {
+public class ReservationManage extends basecontrol{
 }

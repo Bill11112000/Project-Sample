@@ -1,5 +1,5 @@
 package com.pdm.controller;
 
 
-public class ReportManage {
+public class ReportManage extends basecontrol {
 }

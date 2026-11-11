@@ -1,3 +1,3 @@
 package com.pdm.controller;
-public class LoanManage {
+public class LoanManage extends basecontrol {
 }
