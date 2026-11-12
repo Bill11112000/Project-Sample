@@ -1,171 +1,119 @@
 package com.pdm.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
+import com.pdm.connect.DbErrors;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-//it is use for menu switch or return home
+/** Shared navigation and message helpers for every screen. */
 public class basecontrol {
+
+    private static final String VIEW_PATH = "/com/pdm/view/%s.fxml";
 
     @FXML
     private BorderPane mainpane;
 
     @FXML
     public void homeClick(ActionEvent event) {
-        try {
-
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/pdm/view/HomeView.fxml"));
-            Parent root = fxmlLoader.load();
-
-            Stage stage = (Stage) mainpane.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setTitle("Library Management");
-            stage.setScene(scene);
-            stage.show();
-            System.out.println("home ok");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        openView("HomeView", "Library Management");
     }
 
     @FXML
     public void bookClick(ActionEvent event) {
-        try {
-
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/pdm/view/BookView.fxml"));
-            Parent root = fxmlLoader.load();
-
-            Stage stage = (Stage) mainpane.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setTitle("Book Catalog Manage");
-            stage.setScene(scene);
-            stage.show();
-            System.out.println("book ok");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        openView("BookView", "Book Catalog Manage");
     }
 
     @FXML
     public void memClick(ActionEvent event) {
-        try {
-
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/pdm/view/MemberView.fxml"));
-            Parent root = fxmlLoader.load();
-
-            Stage stage = (Stage) mainpane.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setTitle("Member Management");
-            stage.setScene(scene);
-            stage.show();
-            System.out.println("member ok");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        openView("MemberView", "Member Management");
     }
 
     @FXML
     public void loanClick(ActionEvent event) {
-        try {
-
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/pdm/view/LoanView.fxml"));
-            Parent root = fxmlLoader.load();
-
-            Stage stage = (Stage) mainpane.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setTitle("Loan Management");
-            stage.setScene(scene);
-            stage.show();
-            System.out.println("loans ok");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        openView("LoanView", "Loan Management");
     }
 
     @FXML
     public void reserClick(ActionEvent event) {
-        try {
-
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/pdm/view/ReservationView.fxml"));
-            Parent root = fxmlLoader.load();
-
-            Stage stage = (Stage) mainpane.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setTitle("Reservation Management");
-            stage.setScene(scene);
-            stage.show();
-            System.out.println("reservation ok");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        openView("ReservationView", "Reservation Management");
     }
 
     @FXML
     public void fineClick(ActionEvent event) {
-        try {
-
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/pdm/view/FineView.fxml"));
-            Parent root = fxmlLoader.load();
-
-            Stage stage = (Stage) mainpane.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setTitle("Fine Management");
-            stage.setScene(scene);
-            stage.show();
-            System.out.println("fines ok");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        openView("FineView", "Fine Management");
     }
 
     @FXML
     public void reportClick(ActionEvent event) {
-        try {
-
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/pdm/view/ReportView.fxml"));
-            Parent root = fxmlLoader.load();
-
-            Stage stage = (Stage) mainpane.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setTitle("Report");
-            stage.setScene(scene);
-            stage.show();
-            System.out.println("reports ok");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        openView("ReportView", "Report");
     }
 
     @FXML
     public void searchClick(ActionEvent event) {
         try {
-
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/pdm/view/SearchView.fxml"));
-            Parent root = fxmlLoader.load();
-
-            // Stage stage = (Stage) mainpane.getScene().getWindow();
+            Parent root = loadView("SearchView");
             Stage stage = new Stage();
-            Scene scene = new Scene(root);
+            stage.initOwner(mainpane.getScene().getWindow());
             stage.setTitle("Search Management");
-            stage.setScene(scene);
+            stage.setScene(new Scene(root));
             stage.show();
-            System.out.println("search ok");
         } catch (IOException e) {
-            e.printStackTrace();
+            showLoadError(e);
         }
+    }
 
+    /** Replaces the content of the current window with the requested view. */
+    private void openView(String view, String title) {
+        try {
+            Parent root = loadView(view);
+            Stage stage = (Stage) mainpane.getScene().getWindow();
+            stage.setTitle(title);
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            showLoadError(e);
+        }
+    }
+
+    private Parent loadView(String view) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(VIEW_PATH.formatted(view)));
+        return loader.load();
+    }
+
+    // ---- Shared message helpers for every screen ----
+
+    protected void showInfo(String message) {
+        showAlert(Alert.AlertType.INFORMATION, "Information", null, message);
+    }
+
+    protected void showWarning(String message) {
+        showAlert(Alert.AlertType.WARNING, "Check your input", null, message);
+    }
+
+    protected void showError(String header, SQLException e) {
+        showAlert(Alert.AlertType.ERROR, "Database error", header, DbErrors.friendly(e));
+    }
+
+    private void showLoadError(IOException e) {
+        showAlert(Alert.AlertType.ERROR, "Navigation error",
+                "Could not open the screen",
+                e.getMessage() == null ? e.toString() : e.getMessage());
+    }
+
+    private void showAlert(Alert.AlertType type, String title, String header, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }

@@ -2,17 +2,26 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="mainpane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pdm.controller.MemberManage">
+<BorderPane fx:id="mainpane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pdm.controller.MemberManage">
    <top>
-      <AnchorPane prefHeight="0.0" prefWidth="709.0" style="-fx-background-color: #ffffff;" stylesheets="@style.css" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="0.0" prefWidth="709.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER" prefHeight="46.0" prefWidth="709.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
                <children>
@@ -45,4 +54,74 @@
          </children>
       </AnchorPane>
    </top>
+   <center>
+      <VBox spacing="8.0">
+         <padding>
+            <Insets bottom="8.0" left="12.0" right="12.0" top="8.0" />
+         </padding>
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="8.0">
+               <children>
+                  <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Members" />
+                  <Pane HBox.hgrow="ALWAYS" />
+                  <Button mnemonicParsing="false" onAction="#refreshMembers" styleClass="round-button" text="Refresh" />
+               </children>
+            </HBox>
+            <HBox spacing="12.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <TableView fx:id="memberTable" HBox.hgrow="ALWAYS">
+                     <columns>
+                        <TableColumn fx:id="colMemberId" prefWidth="65.0" text="ID" />
+                        <TableColumn fx:id="colFullName" prefWidth="150.0" text="Full name" />
+                        <TableColumn fx:id="colTypeName" prefWidth="120.0" text="Category" />
+                        <TableColumn fx:id="colEmail" prefWidth="180.0" text="Email" />
+                        <TableColumn fx:id="colIdentity" prefWidth="110.0" text="Identity card" />
+                        <TableColumn fx:id="colExpiry" prefWidth="95.0" text="Expiry" />
+                        <TableColumn fx:id="colAccountStatus" prefWidth="80.0" text="Status" />
+                        <TableColumn fx:id="colPhones" prefWidth="120.0" text="Phone" />
+                     </columns>
+                  </TableView>
+                  <VBox prefWidth="330.0" spacing="8.0">
+                     <children>
+                        <Label style="-fx-font-weight: bold;" text="Member details" />
+                        <GridPane hgap="8.0" vgap="8.0">
+                           <columnConstraints>
+                              <ColumnConstraints minWidth="90.0" />
+                              <ColumnConstraints hgrow="ALWAYS" />
+                           </columnConstraints>
+                           <children>
+                              <Label text="Member ID" GridPane.rowIndex="0" />
+                              <TextField fx:id="memberIdField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                              <Label text="Full name" GridPane.rowIndex="1" />
+                              <TextField fx:id="fullNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label text="Email" GridPane.rowIndex="2" />
+                              <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label text="Identity card" GridPane.rowIndex="3" />
+                              <TextField fx:id="identityField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label text="Phone" GridPane.rowIndex="4" />
+                              <TextField fx:id="phoneField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label text="Category" GridPane.rowIndex="5" />
+                              <ComboBox fx:id="categoryBox" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <Label text="Expiry date" GridPane.rowIndex="6" />
+                              <DatePicker fx:id="expiryPicker" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                              <Label text="Status" GridPane.rowIndex="7" />
+                              <ComboBox fx:id="statusBox" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                           </children>
+                        </GridPane>
+                        <HBox spacing="8.0">
+                           <children>
+                              <Button fx:id="addButton" mnemonicParsing="false" onAction="#addMember" styleClass="round-button" text="Add" />
+                              <Button fx:id="updateButton" mnemonicParsing="false" onAction="#updateMember" styleClass="round-button" text="Update" />
+                              <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteMember" styleClass="round-button" text="Delete" />
+                              <Button mnemonicParsing="false" onAction="#clearForm" styleClass="round-button" text="Clear form" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <Label fx:id="countLabel" text="Showing 0 members" />
+         </children>
+      </VBox>
+   </center>
 </BorderPane>

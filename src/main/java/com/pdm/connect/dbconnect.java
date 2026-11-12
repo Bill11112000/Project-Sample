@@ -1,51 +1,46 @@
 package com.pdm.connect;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class dbconnect {
-    // Database configuration
-    // private static final String URL = "jdbc:mysql://localhost:3306/test";
-    // private static final String USER = "root";
-    // private static final String PASSWORD = "your_password";
-    private static Connection connection = null;
+public final class dbconnect {
+
+    private static final String CONFIG_FILE = "db.properties";
 
     private dbconnect() {
     }
 
+    // Returns a NEW connection. Callers close it with try-with-resources.
     public static Connection getConnection() throws SQLException {
+        Properties settings = loadSettings();
 
-        Properties setting = new Properties();
+        String url = settings.getProperty("db.url");
+        String user = settings.getProperty("db.user");
+        String password = settings.getProperty("db.password");
 
-        try (InputStream input = new FileInputStream("db.properties")) {
-            setting.load(input);
-        } catch (IOException ex) {
-            throw new SQLException("Error reading db.properties", ex);
+        if (url == null || user == null || password == null) {
+            throw new SQLException("db.properties must define db.url, db.user and db.password");
         }
 
-        String url = setting.getProperty("db.url");
-        String user = setting.getProperty("db.user");
-        String password = setting.getProperty("db.password");
-        // System.out.println(URL);
-
-        if (connection == null || connection.isClosed()) {
-            connection = DriverManager.getConnection(url, user, password);
-        }
-        return connection;
+        return DriverManager.getConnection(url, user, password);
     }
 
-    public static void closeConnection() {
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+    private static Properties loadSettings() throws SQLException {
+        Properties settings = new Properties();
+        Path configPath = Path.of(CONFIG_FILE).toAbsolutePath();
+
+        try (InputStream input = Files.newInputStream(configPath)) {
+            settings.load(input);
+        } catch (IOException ex) {
+            throw new SQLException("Cannot read " + configPath
+                    + " (current working directory: " + Path.of("").toAbsolutePath() + ")", ex);
         }
+        return settings;
     }
 }

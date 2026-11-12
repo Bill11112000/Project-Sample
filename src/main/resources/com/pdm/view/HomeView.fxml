@@ -146,12 +146,12 @@
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font></Text>
-                  <Label layoutX="40.0" layoutY="84.0" text="this is abc def an comvoi ca .... to manage ... noi chung la description ..." wrapText="true" GridPane.halignment="CENTER" />
-                  <Label text="this is abc def an comvoi ca .... to manage ... noi chung la description ..." wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-                  <Label layoutX="40.0" layoutY="84.0" text="this is abc def an comvoi ca .... to manage ... noi chung la description ..." wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                  <Label layoutX="40.0" layoutY="84.0" text="this is abc def an comvoi ca .... to manage ... noi chung la description ..." wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                  <Label layoutX="40.0" layoutY="84.0" text="this is abc def an comvoi ca .... to manage ... noi chung la description ..." wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                  <Label layoutX="40.0" layoutY="84.0" text="this is abc def an comvoi ca .... to manage ... noi chung la description ..." wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                  <Label layoutX="40.0" layoutY="84.0" text="List of all books in the library" wrapText="true" GridPane.halignment="CENTER" />
+                  <Label text="List of all the members" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                  <Label layoutX="40.0" layoutY="84.0" text="Manage members loans" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                  <Label layoutX="40.0" layoutY="84.0" text="List of all book reservations" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                  <Label layoutX="40.0" layoutY="84.0" text="List of members fines" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                  <Label layoutX="40.0" layoutY="84.0" text="Generate reports" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                </children>
                <padding>
                   <Insets bottom="30.0" left="30.0" right="30.0" top="10.0" />
@@ -164,7 +164,6 @@
       </VBox>
    </center>
    <stylesheets>
-      <URL value="@style.css" />
       <URL value="@style.css" />
    </stylesheets>
 </BorderPane>

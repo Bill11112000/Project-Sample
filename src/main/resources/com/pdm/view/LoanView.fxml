@@ -2,17 +2,25 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
 <BorderPane fx:id="mainpane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pdm.controller.LoanManage">
    <top>
-      <AnchorPane prefHeight="0.0" prefWidth="709.0" style="-fx-background-color: #ffffff;" stylesheets="@style.css" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="0.0" prefWidth="709.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER" prefHeight="46.0" prefWidth="709.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
                <children>
@@ -45,4 +53,96 @@
          </children>
       </AnchorPane>
    </top>
+   <center>
+      <VBox spacing="6.0">
+         <padding>
+            <Insets bottom="8.0" left="12.0" right="12.0" top="8.0" />
+         </padding>
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="8.0">
+               <children>
+                  <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Loans" />
+                  <Pane HBox.hgrow="ALWAYS" />
+                  <Button mnemonicParsing="false" onAction="#refreshLoans" styleClass="round-button" text="Refresh" />
+               </children>
+            </HBox>
+            <SplitPane dividerPositions="0.5" orientation="VERTICAL" VBox.vgrow="ALWAYS">
+               <items>
+                  <VBox spacing="6.0">
+                     <children>
+                        <TableView fx:id="loanTable" VBox.vgrow="ALWAYS">
+                           <columns>
+                              <TableColumn fx:id="colLoanId" prefWidth="80.0" text="Loan ID" />
+                              <TableColumn fx:id="colMemberName" prefWidth="180.0" text="Member" />
+                              <TableColumn fx:id="colStaffName" prefWidth="160.0" text="Staff" />
+                              <TableColumn fx:id="colBorrowDate" prefWidth="110.0" text="Borrowed" />
+                              <TableColumn fx:id="colDueDate" prefWidth="110.0" text="Due" />
+                              <TableColumn fx:id="colTotalCopies" prefWidth="90.0" text="Copies" />
+                           </columns>
+                        </TableView>
+                        <Label fx:id="loanCountLabel" text="Showing 0 loans" />
+                     </children>
+                  </VBox>
+                  <TabPane tabClosingPolicy="UNAVAILABLE">
+                     <tabs>
+                        <Tab text="Loan lines">
+                           <content>
+                              <VBox spacing="6.0">
+                                 <padding>
+                                    <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                                 </padding>
+                                 <children>
+                                    <TableView fx:id="detailTable" VBox.vgrow="ALWAYS">
+                                       <columns>
+                                          <TableColumn fx:id="colDetailId" prefWidth="75.0" text="Detail ID" />
+                                          <TableColumn fx:id="colBookId" prefWidth="70.0" text="Book ID" />
+                                          <TableColumn fx:id="colBookTitle" prefWidth="210.0" text="Title" />
+                                          <TableColumn fx:id="colCopyId" prefWidth="90.0" text="Copy ID" />
+                                          <TableColumn fx:id="colReturnDate" prefWidth="110.0" text="Returned" />
+                                          <TableColumn fx:id="colRenewals" prefWidth="80.0" text="Renewals" />
+                                          <TableColumn fx:id="colPaymentStatus" prefWidth="100.0" text="Payment" />
+                                          <TableColumn fx:id="colFineAmount" prefWidth="90.0" text="Fine" />
+                                       </columns>
+                                    </TableView>
+                                    <Label fx:id="detailCountLabel" text="Select a loan to see its lines" />
+                                 </children>
+                              </VBox>
+                           </content>
+                        </Tab>
+                        <Tab text="Overdue loans (Q2)">
+                           <content>
+                              <VBox spacing="6.0">
+                                 <padding>
+                                    <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                                 </padding>
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" spacing="8.0">
+                                       <children>
+                                          <Label text="Member" />
+                                          <ComboBox fx:id="memberBox" prefWidth="240.0" promptText="Choose a member" />
+                                          <Button mnemonicParsing="false" onAction="#loadOverdue" styleClass="round-button" text="Show overdue" />
+                                       </children>
+                                    </HBox>
+                                    <TableView fx:id="overdueTable" VBox.vgrow="ALWAYS">
+                                       <columns>
+                                          <TableColumn fx:id="colOverdueLoan" prefWidth="80.0" text="Loan ID" />
+                                          <TableColumn fx:id="colOverdueDue" prefWidth="110.0" text="Due date" />
+                                          <TableColumn fx:id="colOverdueDetail" prefWidth="80.0" text="Detail ID" />
+                                          <TableColumn fx:id="colOverdueBook" prefWidth="220.0" text="Title" />
+                                          <TableColumn fx:id="colOverdueCopy" prefWidth="100.0" text="Copy ID" />
+                                          <TableColumn fx:id="colDaysOverdue" prefWidth="100.0" text="Days overdue" />
+                                       </columns>
+                                    </TableView>
+                                    <Label fx:id="overdueCountLabel" text="Choose a member to see overdue loans" />
+                                 </children>
+                              </VBox>
+                           </content>
+                        </Tab>
+                     </tabs>
+                  </TabPane>
+               </items>
+            </SplitPane>
+         </children>
+      </VBox>
+   </center>
 </BorderPane>

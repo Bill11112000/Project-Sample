@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="mainpane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pdm.controller.Search">
+   <top>
+      <HBox alignment="CENTER_LEFT" prefHeight="46.0" spacing="10.0" style="-fx-background-color: #ffffff; -fx-padding: 10 20 10 20;">
+         <children>
+            <Button fx:id="home" mnemonicParsing="false" onAction="#homeClick" styleClass="round-button" text="Home" />
+            <Pane HBox.hgrow="ALWAYS" />
+            <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Search" />
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <TabPane tabClosingPolicy="UNAVAILABLE">
+         <tabs>
+            <Tab text="Book search">
+               <content>
+                  <VBox spacing="8.0">
+                     <padding>
+                        <Insets bottom="8.0" left="12.0" right="12.0" top="8.0" />
+                     </padding>
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="8.0">
+                           <children>
+                              <Label text="Title" />
+                              <TextField fx:id="titleField" prefWidth="170.0" promptText="Part of the title" />
+                              <Label text="Author" />
+                              <TextField fx:id="authorField" prefWidth="150.0" promptText="Author name" />
+                              <Label text="Category" />
+                              <ComboBox fx:id="categoryBox" prefWidth="150.0" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="8.0">
+                           <children>
+                              <Label text="Copy status" />
+                              <ComboBox fx:id="statusBox" prefWidth="150.0" />
+                              <Button mnemonicParsing="false" onAction="#runSearch" styleClass="round-button" text="Search" />
+                              <Button mnemonicParsing="false" onAction="#clearSearch" styleClass="round-button" text="Clear" />
+                           </children>
+                        </HBox>
+                        <TableView fx:id="resultTable" VBox.vgrow="ALWAYS">
+                           <columns>
+                              <TableColumn fx:id="colBookId" prefWidth="70.0" text="ID" />
+                              <TableColumn fx:id="colTitle" prefWidth="220.0" text="Title" />
+                              <TableColumn fx:id="colIsbn" prefWidth="130.0" text="ISBN" />
+                              <TableColumn fx:id="colYear" prefWidth="60.0" text="Year" />
+                              <TableColumn fx:id="colCategory" prefWidth="110.0" text="Category" />
+                              <TableColumn fx:id="colPublisher" prefWidth="130.0" text="Publisher" />
+                              <TableColumn fx:id="colAuthors" prefWidth="160.0" text="Authors" />
+                              <TableColumn fx:id="colCopies" prefWidth="65.0" text="Copies" />
+                              <TableColumn fx:id="colAvailable" prefWidth="75.0" text="Available" />
+                           </columns>
+                        </TableView>
+                        <Label fx:id="resultCountLabel" text="Showing 0 matching books" />
+                     </children>
+                  </VBox>
+               </content>
+            </Tab>
+            <Tab text="Members who read an author (Q4)">
+               <content>
+                  <VBox spacing="8.0">
+                     <padding>
+                        <Insets bottom="8.0" left="12.0" right="12.0" top="8.0" />
+                     </padding>
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="8.0">
+                           <children>
+                              <Label text="Author" />
+                              <ComboBox fx:id="q4AuthorBox" prefWidth="240.0" promptText="Choose an author" />
+                              <Button mnemonicParsing="false" onAction="#runQ4" styleClass="round-button" text="Find members" />
+                           </children>
+                        </HBox>
+                        <TableView fx:id="q4Table" VBox.vgrow="ALWAYS">
+                           <columns>
+                              <TableColumn fx:id="colQ4Author" prefWidth="190.0" text="Author" />
+                              <TableColumn fx:id="colQ4MemberId" prefWidth="100.0" text="Member ID" />
+                              <TableColumn fx:id="colQ4MemberName" prefWidth="220.0" text="Member" />
+                              <TableColumn fx:id="colQ4Borrowed" prefWidth="110.0" text="Titles borrowed" />
+                              <TableColumn fx:id="colQ4Total" prefWidth="110.0" text="Titles by author" />
+                           </columns>
+                        </TableView>
+                        <Label fx:id="q4CountLabel" text="Choose an author to run the query" />
+                     </children>
+                  </VBox>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+   </center>
+</BorderPane>

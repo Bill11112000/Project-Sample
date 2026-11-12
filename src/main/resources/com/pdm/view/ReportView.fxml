@@ -2,17 +2,24 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="mainpane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pdm.controller.ReportManage">
+<BorderPane fx:id="mainpane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pdm.controller.ReportManage">
    <top>
-      <AnchorPane prefHeight="0.0" prefWidth="709.0" style="-fx-background-color: #ffffff;" stylesheets="@style.css" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="0.0" prefWidth="709.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER" prefHeight="46.0" prefWidth="709.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
                <children>
@@ -45,4 +52,62 @@
          </children>
       </AnchorPane>
    </top>
+   <center>
+      <TabPane tabClosingPolicy="UNAVAILABLE">
+         <tabs>
+            <Tab text="Top titles by year (Q3)">
+               <content>
+                  <VBox spacing="8.0">
+                     <padding>
+                        <Insets bottom="8.0" left="12.0" right="12.0" top="8.0" />
+                     </padding>
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="8.0">
+                           <children>
+                              <Label text="Year" />
+                              <TextField fx:id="yearField" prefWidth="100.0" />
+                              <Button mnemonicParsing="false" onAction="#runTopTitles" styleClass="round-button" text="Run report" />
+                           </children>
+                        </HBox>
+                        <TableView fx:id="topTable" VBox.vgrow="ALWAYS">
+                           <columns>
+                              <TableColumn fx:id="colTopBookId" prefWidth="100.0" text="Book ID" />
+                              <TableColumn fx:id="colTopTitle" prefWidth="400.0" text="Title" />
+                              <TableColumn fx:id="colTopCount" prefWidth="150.0" text="Times borrowed" />
+                           </columns>
+                        </TableView>
+                        <Label fx:id="topCountLabel" text="Top 0 titles" />
+                     </children>
+                  </VBox>
+               </content>
+            </Tab>
+            <Tab text="Outstanding fines (Q5)">
+               <content>
+                  <VBox spacing="8.0">
+                     <padding>
+                        <Insets bottom="8.0" left="12.0" right="12.0" top="8.0" />
+                     </padding>
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="8.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#runFines" styleClass="round-button" text="Run report" />
+                           </children>
+                        </HBox>
+                        <TableView fx:id="finesTable" VBox.vgrow="ALWAYS">
+                           <columns>
+                              <TableColumn fx:id="colCategoryId" prefWidth="110.0" text="Category ID" />
+                              <TableColumn fx:id="colCategoryName" prefWidth="220.0" text="Category" />
+                              <TableColumn fx:id="colMembersWithFines" prefWidth="160.0" text="Members with fines" />
+                              <TableColumn fx:id="colTotalOutstanding" prefWidth="180.0" text="Total outstanding" />
+                           </columns>
+                        </TableView>
+                        <Label fx:id="finesCountLabel" text="Showing 0 member categories" />
+                        <Label fx:id="grandTotalLabel" style="-fx-font-weight: bold;" text="Total outstanding fines: 0" />
+                     </children>
+                  </VBox>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+   </center>
 </BorderPane>
